@@ -1,8 +1,5 @@
 import atexit
 from selenium import webdriver
-# from logger import setup_custom_logger
-
-# logger = setup_custom_logger('driverbuilder')
 
 def _enable_download_in_headless_chrome(driver: webdriver, download_dir: str):
         """
@@ -31,7 +28,6 @@ def _close_chrome(chrome: webdriver):
     """
     def close():
         chrome.close()
-        # logger.info('Close Chrome.')
     return close
 
 
@@ -53,17 +49,11 @@ def generate_chrome(
     if headless:
         options.add_argument('headless')
         options.add_argument('--disable-gpu')
-    # options.add_argument('--start-maximized')
-    # options.add_argument('--no-sandbox')
-    # options.add_argument('lang=ko_KR')
-    # options.add_argument('window-size=1920,1480')
     options.add_experimental_option('prefs', {
         'download.default_directory': download_path,
         'download.prompt_for_download': False,
-        # 'download.directory_upgrade': True,
         "profile.default_content_settings.popups": 0,
         "safebrowsing.enabled": True
-          # 'safebrowsing.disable_download_protection': True
     })
     
     chrome = webdriver.Chrome(executable_path=driver_path, options=options)
